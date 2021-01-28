@@ -60,4 +60,12 @@ describe("kings model", () => {
             expect(updatedKing).toMatchObject(alfred);
         });
     });
+    describe("remove function", () => {
+        it("removes the king from db", async () => {
+            Kings.insert(aragorn);
+            await Kings.remove(1);
+            const allKings = await db("kings");
+            expect(allKings).toHaveLength(0);
+        });
+    });
 });

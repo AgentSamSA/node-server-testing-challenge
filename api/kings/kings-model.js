@@ -21,5 +21,5 @@ async function update(id, changes) {
 }
 
 function remove(id) {
-
+    return db("kings").where("id", id).del();
 }
