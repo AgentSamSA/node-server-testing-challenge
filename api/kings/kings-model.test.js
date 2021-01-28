@@ -38,4 +38,15 @@ describe("kings model", () => {
             expect(king).toMatchObject({ id: 1, ...aragorn });
         });
     });
+    describe("get function", () => {
+        it("gets kings from db", async () => {
+            Kings.insert(aragorn);
+            Kings.insert(alfred);
+            const allKings = await Kings.get();
+            expect(allKings).toHaveLength(2);
+        });
+    });
+    describe("update function", () => {
+        it()
+    });
 });
