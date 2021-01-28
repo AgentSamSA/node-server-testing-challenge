@@ -47,4 +47,18 @@ describe("server", () => {
             expect(res.body[1]).toMatchObject({ id: 2, ...alfred });
         });
     });
+    describe("[POST] /kings", () => {
+        it("responds with a 201 Created", async () => {
+            const res = await request(server).post("/kings").send(aragorn);
+            expect(res.status).toBe(201);
+        });
+        it("responds with the newly created king", async () => {
+            let res;
+            res = await request(server).post("/kings").send(aragorn);
+            expect(res.body).toMatchObject({ id: 1, ...aragorn });
+
+            res = await request(server).post("/kings").send(alfred);
+            expect(res.body).toMatchObject({ id: 2, ...alfred });
+        });
+    });
 });

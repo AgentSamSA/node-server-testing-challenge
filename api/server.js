@@ -21,7 +21,13 @@ server.get("/kings", (req, res) => {
 });
 
 server.post("/kings", (req, res) => {
-
+    Kings.insert(req.body)
+        .then(king => {
+            res.status(201).json(king);
+        })
+        .catch(err => {
+            res.status(500).json(err.message);
+        });
 });
 
 module.exports = server;
