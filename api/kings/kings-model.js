@@ -17,7 +17,7 @@ async function insert(king) {
 }
 
 async function update(id, changes) {
-
+    return db("kings").update(changes).where("id", id);
 }
 
 function remove(id) {

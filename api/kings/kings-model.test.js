@@ -47,6 +47,17 @@ describe("kings model", () => {
         });
     });
     describe("update function", () => {
-        it()
+        it("updates the kings in db", async () => {
+            const [id] = await db("kings").insert(aragorn);
+            await Kings.update(1, { name: "Aragorn the Wise" });
+            const updatedKing = await db("kings").where("id", id).first();
+            expect(updatedKing.name).toBe("Aragorn the Wise");
+        });
+        it("resolves to the updated king", async () => {
+            const [id] = await db("kings").insert(aragorn);
+            await Kings.update(1, alfred);
+            const updatedKing = await db("kings").where("id", id).first();
+            expect(updatedKing).toMatchObject(alfred);
+        });
     });
 });
