@@ -61,4 +61,20 @@ describe("server", () => {
             expect(res.body).toMatchObject({ id: 2, ...alfred });
         });
     });
+    describe("[DELETE] /kings/:id", () => {
+        it("responds with a 200 OK", async () => {
+            const res = await request(server).del("/kings/:id");
+            expect(res.status).toBe(200);
+        });
+        it("deletes the king with that id", async () => {
+            let res;
+            const [id] = await db("kings").insert(aragorn);
+            await db("kings").insert(alfred);
+            res = await request(server).get("/kings");
+            expect(res.body).toHaveLength(2);
+            await request(server).del(`/kings/${id}`);
+            res = await request(server).get("/kings");
+            expect(res.body).toHaveLength(1);
+        });
+    });
 });

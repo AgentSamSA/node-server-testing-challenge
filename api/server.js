@@ -30,4 +30,14 @@ server.post("/kings", (req, res) => {
         });
 });
 
+server.delete("/kings/:id", (req, res) => {
+    Kings.remove(req.params.id)
+        .then(deleted => {
+            res.status(200).json(deleted);
+        })
+        .catch(err => {
+            res.status(500).json(err.message);
+        });
+});
+
 module.exports = server;
